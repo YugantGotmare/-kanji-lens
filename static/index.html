@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanji Lens</title>
+<link rel="stylesheet" href="/styles.css">
+<main>
+  <header><p class="eyebrow">READ · CONNECT · LISTEN</p><h1>Kanji Lens</h1>
+    <p>Explore familiar kanji through useful words and their readings.</p></header>
+  <nav aria-label="Study views"><button id="explore-tab" aria-pressed="true">Explore</button><button id="saved-tab" aria-pressed="false">Saved words <span id="saved-count">0</span></button><button id="review-tab" aria-pressed="false">Review</button></nav>
+  <div id="explore-view">
+  <details id="photo-panel" open><summary>📷 Learn from a photo</summary>
+    <p>Take a picture or choose an image. Crop closely around clear, printed Japanese text.</p>
+    <p class="muted">For a single kanji, crop tightly or select Single character. For a whole page, choose Horizontal or Vertical text.</p>
+    <div class="toolbar"><label class="file-button">Take a photo<input id="camera" type="file" accept="image/*" capture="environment"></label>
+      <label class="file-button">Choose image<input id="photo" type="file" accept="image/*"></label></div>
+    <div id="image-tools" hidden><canvas id="preview" aria-label="Photo preview"></canvas>
+      <div class="toolbar"><button id="rotate" type="button">Rotate ↻</button><label>Recognition <select id="ocr-engine"><option value="local">PaddleOCR · local server</option><option value="browser">Tesseract · browser fallback</option></select></label><label>Text layout <select id="layout"><option value="auto">Automatic</option><option value="6">Horizontal text</option><option value="5">Vertical text</option><option value="10">Single character</option><option value="line">Single line (PaddleOCR)</option></select></label></div>
+      <fieldset><legend>Crop area (percent of image)</legend><div class="crop-controls">
+        <label>Left <input id="crop-left" type="range" min="0" max="90" value="0"></label>
+        <label>Top <input id="crop-top" type="range" min="0" max="90" value="0"></label>
+        <label>Width <input id="crop-width" type="range" min="10" max="100" value="100"></label>
+        <label>Height <input id="crop-height" type="range" min="10" max="100" value="100"></label></div></fieldset>
+      <button id="scan" type="button">Read kanji from image</button><button id="cancel-scan" type="button" hidden>Cancel</button>
+    </div>
+    <p id="scan-status" role="status" aria-live="polite"></p><progress id="scan-progress" max="1" value="0" hidden></progress>
+    <div id="recognized" hidden><label for="recognized-text">Check or correct the recognized text</label><textarea id="recognized-text" lang="ja" rows="3" maxlength="2000"></textarea>
+      <p>Tap a kanji below to explore its vocabulary.</p><div id="kanji-choices" class="toolbar"></div><div id="ocr-alternatives" class="toolbar"></div><button id="use-recognized" type="button">Explore this text</button></div>
+    <small>PaddleOCR processes the crop on the computer running this app; photos are not sent to a cloud OCR service or saved. Models need a one-time setup download. Browser fallback processes images on your device and downloads its own engine/model. Always check recognition before learning.</small>
+  </details>
+  <form id="search"><label for="query">Enter a kanji or Japanese text</label>
+    <div class="search"><input id="query" lang="ja" value="生" maxlength="200" required><button>Explore</button></div>
+    <small>Shows up to five different kanji from your text.</small></form>
+  </div>
+  <aside><label for="voice">Japanese voice</label> <select id="voice"></select>
+    <label for="speed">Speed</label> <select id="speed"><option value="1">Normal</option><option value="0.8">Slower</option></select>
+    <button id="stop" type="button">Stop audio</button><p id="audio-status" role="status"></p>
+    <small>Synthetic audio. Word playback uses the displayed kana; sentence readings and pitch accent can vary.</small></aside>
+  <p id="status" role="status" aria-live="polite"></p>
+  <div id="results"></div>
+  <section id="saved-view" hidden><h2>Your vocabulary</h2><p>Saved on this browser. Export a backup to keep your words and review progress.</p><div class="toolbar"><button id="export-saved">Export backup</button><label class="file-button">Import backup<input id="import-saved" type="file" accept="application/json,.json"></label></div><p id="storage-status" role="status"></p><div id="saved-list"></div></section>
+  <section id="review-view" hidden><h2>A little practice, every day</h2><p id="review-progress" role="status"></p><div id="review-card"></div></section>
+  <footer>Dictionary: <a href="https://www.edrdg.org/">EDRDG / KANJIDIC2 / JMdict</a> (CC BY-SA 4.0).
+    Reading segmentation: <a href="https://github.com/Doublevil/JmdictFurigana">JmdictFurigana</a>.
+    Examples: <a href="https://tatoeba.org/">Tatoeba</a> (CC BY 2.0 FR); each example links to its source.
+    Vocabulary ranking uses wordfreq. Automatic examples are not human-reviewed.</footer>
+</main><script src="/study.js" defer></script><script src="/app.js" defer></script><script src="/photo.js" defer></script>
+</html>

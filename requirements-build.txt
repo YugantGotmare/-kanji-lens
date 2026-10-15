@@ -1,0 +1,4 @@
+lxml
+wordfreq
+fugashi
+unidic-lite

@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.test-run*/
+.browser-check/
+*.part
+*.db.tmp
+.venv-ocr/
+.ocr-models/
+
+# Downloaded sources and generated databases (rebuild locally).
+raw_data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Local environments, credentials, editor and OS files.
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+Microsoft/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
